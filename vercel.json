@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "build" }
+    }
+  ],
+  "routes": [
+    // Backend Routes - These map directly to your app.use() paths in backend/app.js
+    { "src": "/login(.*)", "dest": "backend/server.js" },
+    { "src": "/dashboard(.*)", "dest": "backend/server.js" },
+    { "src": "/application-form(.*)", "dest": "backend/server.js" },
+    { "src": "/document-upload(.*)", "dest": "backend/server.js" },
+    { "src": "/application-status(.*)", "dest": "backend/server.js" },
+    { "src": "/messages(.*)", "dest": "backend/server.js" },
+    { "src": "/payment(.*)", "dest": "backend/server.js" },
+    { "src": "/profile(.*)", "dest": "backend/server.js" },
+    { "src": "/uploads/(.*)", "dest": "backend/server.js" }, // For static uploads if served by backend
+
+    // Frontend Routes - This is the fallback for all other paths
+    { "src": "/(.*)", "dest": "frontend/$1" }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "VERCEL_URL": "https://your-vercel-app-name.vercel.app"
+    // Add any other environment variables here
+  }
+}

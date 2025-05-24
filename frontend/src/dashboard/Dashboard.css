@@ -1,0 +1,591 @@
+/* Import a modern font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@400;700&display=swap');
+
+/* Basic reset for consistent styling */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif; /* Prioritize Inter as primary font */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    overflow-x: hidden; /* Prevent horizontal scrollbar from layout shifts */
+}
+
+/* Inherit box-sizing for all elements */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* Two-color gradient background for the whole page */
+body {
+    background: linear-gradient(135deg, #9adb9a 0%, #02460b 80%);
+}
+
+/* Overall Dashboard Container (for Sidebar and Main Content) */
+.dashboard-container {
+    display: flex; /* Establishes a flex container for sidebar and main content */
+    min-height: 100vh; /* Ensures the container takes at least full viewport height */
+}
+
+/* Application Form Container (from your provided CSS, moved here for clarity) */
+/* Note: Its margin suggests it's within the main content area, not wrapping it. */
+.application-form-container {
+    max-width: 1000px;
+    margin: 100px auto 32px 68px; /* Adjusted margin to push right for sidebar, then auto center */
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    padding: 36px 38px 32px 38px;
+}
+
+/* Main content area (right of sidebar) */
+.dashboard-main-content {
+    flex-grow: 1; /* Allows it to take up all available space */
+    margin-left: 68px; /* Default: only fixed sidebar, assuming sidebar is 68px fixed width */
+    transition: margin-left 0.3s cubic-bezier(0.4,0,0.2,1); /* Smooth transition for sidebar expand/collapse */
+    padding: 20px; /* Overall padding for the main content area */
+    overflow-y: auto; /* Allows scrolling if content exceeds viewport height */
+}
+
+/* When messages-sidebar is expanded, push main content further right */
+.messages-sidebar:not(.collapsed) + .dashboard-main-content {
+    margin-left: 288px; /* 68px fixed + 220px expanded */
+}
+
+
+/* Gradient text for all specified elements */
+.dashboard-main-content h1,
+.dashboard-main-content h2,
+.dashboard-main-content h3,
+.dashboard-main-content h4,
+.dashboard-main-content h5,
+.dashboard-main-content h6,
+.dashboard-main-content p,
+.dashboard-main-content span:not(.info-card-highlight),
+.dashboard-main-content .section-title,
+.dashboard-main-content .info-card-text,
+.dashboard-main-content .announcement-heading,
+.dashboard-main-content .info-heading,
+.dashboard-main-content .program-heading,
+.dashboard-main-content .contact-heading {
+    background: linear-gradient(135deg, #000000 0%, #000000 100%);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Inter', 'Montserrat', Arial, sans-serif;
+}
+
+/* Re-apply color for specific elements that shouldn't be black gradient */
+.info-card-highlight,
+.announcement-detail,
+.announcement-date,
+.info-detail,
+.program-list li,
+.contact-address p,
+.contact-numbers p,
+.contact-email p,
+.contact-hours p {
+    color: #333 !important; /* Override gradient to ensure readability */
+    -webkit-text-fill-color: #333 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+}
+/* Ensure section titles keep their green color */
+.section-title,
+.program-heading,
+.contact-heading {
+    color: #2c781d !important; /* Darker green for titles, as specified */
+    -webkit-text-fill-color: #2c781d !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+}
+
+
+/* Dashboard Header Section (Top Green Section with Image and Text) */
+.dashboard-header {
+    font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background-image: url('https://www.paterostechnologicalcollege.edu.ph/ASSETS/IMAGES/HOME/banner-ptc.png');
+    background-size: cover;
+    background-position: left center;
+    background-color: #227e42;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 40px;
+    color: #b30b0b;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow */
+    animation: slide-bg 3s cubic-bezier(0.4,0,0.2,1) forwards,
+               fade-in 0.5s ease-in-out forwards;
+}
+
+@keyframes slide-bg {
+    from { background-position: right center; }
+    to { background-position: center center; }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(32, 28, 28, 0.027), rgba(34, 180, 85, 0.10));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 40px;
+}
+
+.header-title {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+}
+
+.header-subtitle {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+}
+
+/* Info Cards Section (Green Bar below header) */
+.info-cards-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-image: linear-gradient(to right, #325737, #28a745, #3b663b);
+    padding: 20px 40px;
+    gap: 20px;
+    flex-wrap: wrap;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Added / Enhanced shadow */
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.info-card {
+    display: flex;
+    align-items: center;
+    background-color: #8ebe88;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    min-width: 280px;
+    flex: 1;
+    max-width: 350px;
+}
+
+.info-card-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    object-fit: contain;
+    border-radius: 5px;
+    background: #f4f7f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 16px rgba(44, 120, 29, 0.18);
+    filter: none;
+    transition: transform 0.3s ease-in-out;
+}
+
+.info-card-text {
+    font-family: 'Inter', 'Montserrat', Arial, sans-serif;
+    font-size: 1rem;
+    color: #333 !important;
+    -webkit-text-fill-color: #333 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    line-height: 1.4;
+}
+
+.info-card-highlight {
+    font-weight: bold;
+    color: #007bff !important;
+    -webkit-text-fill-color: #007bff !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+}
+
+/* Styles for Clickable Elements (Highlight on Hover) */
+.clickable-card,
+.clickable-list-item {
+    cursor: pointer; /* Indicate it's clickable */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+/* Hover effect for general cards */
+.clickable-card:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+    background-color: #e9f7ef; /* Subtle light green background */
+}
+
+/* Hover effect for list items (announcements/important info) */
+.clickable-list-item:hover {
+    background-color: #f7fcf9; /* Very subtle light green background */
+    transform: translateX(5px); /* Slide slightly to the right */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow on hover */
+}
+
+
+/* Main Content Columns (Announcements and Important Information) */
+.dashboard-columns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+}
+
+/* Responsive adjustment for single column on smaller screens */
+@media (max-width: 992px) {
+    .dashboard-columns-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.announcements-section,
+.info-section {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 60px;
+    /* Combined box-shadow for a consistent look. Removed redundant filter: drop-shadow */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 10); /* Enhanced shadow */
+}
+
+.section-title {
+    font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c781d !important;
+    -webkit-text-fill-color: #2c781d !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+/* Announcement List Styling */
+.announcement-list,
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.announcement-item,
+.info-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #e0e0e0;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: transparent; /* Default transparent */
+}
+
+
+.announcement-item:last-child,
+.info-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.announcement-heading,
+.info-heading {
+    font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333 !important;
+    -webkit-text-fill-color: #333 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    margin-bottom: 5px;
+}
+
+.announcement-detail,
+.info-detail {
+    font-size: 0.95em;
+    color: #555 !important;
+    -webkit-text-fill-color: #555 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+}
+
+.announcement-date {
+    font-size: 0.8em;
+    color: #777 !important;
+    -webkit-text-fill-color: #777 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* Button to "Click for more info" (if you keep it) */
+.info-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 15px;
+}
+
+.info-button:hover {
+    background-color: #45a049;
+}
+
+.info-button:active {
+    transform: translateY(1px);
+}
+
+/* Academic Programs Section */
+.academic-programs-section {
+    padding: 30px 40px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    /* Combined box-shadow for a consistent look. Removed redundant filter: drop-shadow */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 10); /* Enhanced shadow */
+    margin-bottom: 30px;
+}
+
+.academic-programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.program-card {
+    background-color: #f9f9f9;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+}
+
+.program-heading {
+    font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2c781d !important;
+    -webkit-text-fill-color: #2c781d !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.program-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.program-list li {
+    font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+    font-size: 1rem;
+    color: #555 !important;
+    -webkit-text-fill-color: #555 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    position: relative;
+    padding-left: 15px;
+}
+
+.program-list li::before {
+    content: '•';
+    color: #2c781d;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.program-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Contact Information Section */
+.contact-info-section {
+    padding: 30px 40px;
+    background-color: #ffffff;
+    margin-top: 30px;
+    border-radius: 15px;
+    /* Combined box-shadow for a consistent look. Removed redundant filter: drop-shadow */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 1); /* Enhanced shadow */
+}
+
+.contact-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.contact-address,
+.contact-numbers,
+.contact-email,
+.contact-hours {
+    background-color: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+}
+
+.contact-heading {
+    font-family: 'Inter', 'Montserrat', Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c781d !important;
+    -webkit-text-fill-color: #2c781d !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    margin-bottom: 10px;
+}
+
+.contact-address p,
+.contact-numbers p,
+.contact-email p,
+.contact-hours p {
+    font-family: 'Inter', 'Montserrat', Arial, sans-serif;
+    font-size: 0.95rem;
+    color: #555 !important;
+    -webkit-text-fill-color: #555 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    .dashboard-main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .dashboard-header {
+        height: 180px;
+        padding: 15px 20px;
+    }
+
+    .header-title {
+        font-size: 2rem;
+    }
+
+    .header-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .info-cards-section {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .info-card {
+        min-width: unset;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .dashboard-columns-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .announcements-section,
+    .info-section,
+    .academic-programs-section,
+    .contact-info-section {
+        padding: 20px;
+        border-radius: 20px;
+        /* Ensure responsive shadows are also applied */
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .academic-programs-grid,
+    .contact-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .announcement-heading,
+    .info-heading,
+    .program-heading,
+    .contact-heading {
+        font-size: 1.1em;
+    }
+}
+
+/* Even smaller screens (e.g., mobile phones) */
+@media (max-width: 480px) {
+    .dashboard-main-content {
+        padding: 10px;
+    }
+
+    .dashboard-header {
+        height: 150px;
+        padding: 10px 15px;
+    }
+
+    .header-title {
+        font-size: 1.8rem;
+    }
+
+    .header-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .info-cards-section {
+        padding: 10px 15px;
+    }
+
+    .announcements-section,
+    .info-section,
+    .academic-programs-section,
+    .contact-info-section {
+        padding: 15px;
+        /* Ensure responsive shadows are also applied */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 20);
+    }
+}
