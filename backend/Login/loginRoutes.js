@@ -4,21 +4,21 @@ const mysql = require('mysql2');
 const fs = require('fs');
 const path = require('path');
 
-// const db = mysql.createConnection({
-//   host: 'oamsmain-001-740-frederickrealizajr7382-6f28.l.aivencloud.com',
-//   user: 'avnadmin',
-//   password: 'AVNS_Q2hgVgD55Qr7zUrQIjS',
-//   database: 'main',
-//   port: 24797
-// });
-
-
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'main'
+  host: 'oamsmain-001-740-frederickrealizajr7382-6f28.l.aivencloud.com',
+  user: 'avnadmin',
+  password: 'AVNS_Q2hgVgD55Qr7zUrQIjS',
+  database: 'main',
+  port: 24797
 });
+
+
+// const db = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'main'
+// });
 
 // Function to create a folder if it doesn't exist
 const createFolder = (application_id) => {
