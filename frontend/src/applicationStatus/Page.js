@@ -3,10 +3,10 @@ import Sidebar from '../components/Sidebar';
 import './applicationStatus.css';
 import { useNavigate } from 'react-router-dom';
 
-const STATUS_COLORS = {
-  Completed: 'green',
-  Pending: '#b58900',
-};
+// const STATUS_COLORS = {
+//   Completed: 'green',
+//   Pending: '#b58900',
+// };
 
 const ApplicationStatus = () => {
   const [status, setStatus] = useState('Pending');
@@ -22,7 +22,7 @@ const ApplicationStatus = () => {
   const [examSchedule, setExamSchedule] = useState(null);
   const [examLoading, setExamLoading] = useState(true);
   const applicationId = localStorage.getItem('application_id');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     if (!applicationId) return;

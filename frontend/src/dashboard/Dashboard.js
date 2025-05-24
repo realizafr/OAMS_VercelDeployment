@@ -5,7 +5,7 @@ import "./Dashboard.css"; // Ensure this CSS file is linked
 function Dashboard() {
   // Helper function for navigation (or replace with React Router's useNavigate)
   const navigateTo = (path) => {
-    console.log('Navigating to ${path}...');
+console.log(`Navigating to ${path}...`); // Changed ' to `
     window.location.href = path; // Simple page reload for demonstration
     // In a real React app with react-router-dom, you'd use:
     // const navigate = useNavigate();
