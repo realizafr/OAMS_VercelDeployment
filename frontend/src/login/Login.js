@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Import the CSS file
 import ptcLogo from './images/ptclogo.png';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+
 function Login() {
   const [applicationId, setApplicationId] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +17,7 @@ function Login() {
     setLoading(true);
     setError('');
 
-    axios.post('http://localhost:5000/login', {
+    axios.post('${API_BASE_URL}/login', {
       application_id: applicationId,
       password: password
     })
