@@ -12,7 +12,6 @@
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
-    "body-parser": "^1.20.2",
-    // Add any other dependencies your backend uses (e.g., mongoose, bcrypt, multer for uploads)
+    "body-parser": "^1.20.2"
   }
 }
