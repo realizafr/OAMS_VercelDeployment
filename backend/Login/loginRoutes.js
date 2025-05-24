@@ -5,13 +5,23 @@ const fs = require('fs');
 const path = require('path');
 
 const db = mysql.createConnection({
-  host: 'oamsmain-001-740-frederickrealizajr7382-6f28.l.aivencloud.com',
-  user: 'avnadmin',
-  password: 'AVNS_Q2hgVgD55Qr7zUrQIjS',
-  database: 'main',
-  port: 24797
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306 // Default MySQL port, or your specific port
 });
 
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    // Handle the error appropriately.  You might want to:
+    // 1.  Send an error response to the client (res.status(500).send('Database connection error');)
+    // 2.  Log the error to a logging service.
+    return; // Important: Stop further execution if the connection fails.
+  }
+  console.log('Connected to database!');
+});
 
 // const db = mysql.createConnection({
 //     host: 'localhost',
