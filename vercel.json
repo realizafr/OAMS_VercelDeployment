@@ -12,7 +12,8 @@
     }
   ],
   "routes": [
-    { "src": "/login(.*)", "dest": "backend/server.js" },
+{ "src": "/login", "dest": "backend/server.js", "methods": ["POST"] }, 
+    { "src": "/login/change-password", "dest": "backend/server.js", "methods": ["POST"] }, 
     { "src": "/dashboard(.*)", "dest": "backend/server.js" },
 
 
