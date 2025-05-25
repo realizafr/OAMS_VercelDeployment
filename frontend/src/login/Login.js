@@ -33,9 +33,17 @@ function Login() {
         navigate('/dashboard');
       }
     })
-    .catch(err => {
+ .catch(err => {
       setLoading(false);
-      setError(err.response?.data || 'Login failed. Please try again.');
+      // Add specific error message for DB connection error
+      if (
+        err.response &&
+        (typeof err.response.data === "string" && err.response.data.toLowerCase().includes("database connection error"))
+      ) {
+        setError("Unable to connect to the database. Please try again later.");
+      } else {
+        setError(err.response?.data || 'Login failed. Please try again.');
+      }
     });
   };
 
