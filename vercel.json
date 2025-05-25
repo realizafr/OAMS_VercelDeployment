@@ -14,13 +14,7 @@
   "routes": [
     { "src": "/login(.*)", "dest": "backend/server.js" },
     { "src": "/dashboard(.*)", "dest": "backend/server.js" },
-    { "src": "/application-form(.*)", "dest": "backend/server.js" },
-    { "src": "/document-upload(.*)", "dest": "backend/server.js" },
-    { "src": "/application-status(.*)", "dest": "backend/server.js" },
-    { "src": "/messages(.*)", "dest": "backend/server.js" },
-    { "src": "/payment(.*)", "dest": "backend/server.js" },
-    { "src": "/profile(.*)", "dest": "backend/server.js" },
-    { "src": "/uploads/(.*)", "dest": "backend/server.js" }, 
+
 
 
     { "src": "/(.*)", "dest": "frontend/$1" }
