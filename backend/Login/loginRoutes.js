@@ -31,15 +31,15 @@ db.connect((err) => {
 // });
 
 // Function to create a folder if it doesn't exist
-const createFolder = (application_id) => {
-  const folderPath = path.join(__dirname, '../uploads', application_id);
-  console.log("Folderpath:", folderPath);
+// const createFolder = (application_id) => {
+//   const folderPath = path.join(__dirname, '../uploads', application_id);
+//   console.log("Folderpath:", folderPath);
 
-  if (!fs.existsSync(folderPath)) {
-    fs.mkdirSync(folderPath, { recursive: true });
-    console.log(`Folder "${application_id}" created inside "uploads/"`);
-  }
-};
+//   if (!fs.existsSync(folderPath)) {
+//     fs.mkdirSync(folderPath, { recursive: true });
+//     console.log(`Folder "${application_id}" created inside "uploads/"`);
+//   }
+// };
 
 router.post('/', (req, res) => {
   const { application_id, password } = req.body;
@@ -58,12 +58,12 @@ router.post('/', (req, res) => {
       }
 
       if (user.is_temp) {
-        createFolder(application_id);
+        // createFolder(application_id);
         return res.status(200).json({ changePassword: true, application_id: user.application_id });
       }
 
-      createFolder(application_id);
-      res.status(200).json({ dashboard: true, application_id: user.application_id });
+      // createFolder(application_id);
+      // res.status(200).json({ dashboard: true, application_id: user.application_id });
 
       // ✅ Insert application_id into doc_uploaded if it doesn’t exist
       db.query(
