@@ -38,7 +38,7 @@ function Login() {
       // Add specific error message for DB connection error
       if (
         err.response &&
-        (typeof err.response.data === "string" && err.response.data.toLowerCase().includes("database connection error"))
+        (typeof err.response.data === "string" && err.response.data.toLowerCase().includes("database"))
       ) {
         setError("Unable to connect to the database. Please try again later.");
       } else {
