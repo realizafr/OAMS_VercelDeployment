@@ -1,29 +1,100 @@
-// backend/Login/loginRoutes.js (TEMPORARY - FOR DEBUGGING LOGS)
 const express = require('express');
 const router = express.Router();
+const mysql = require('mysql2');
+const fs = require('fs');
+const path = require('path');
 
-console.log('loginRoutes.js module loaded!'); // Will show if module loads
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306 // Default MySQL port, or your specific port
+});
 
-// TEMPORARILY COMMENT OUT DB CONNECTION
-// const mysql = require('mysql2');
-// const db = mysql.createConnection({ ... });
-// db.connect((err) => { ... });
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    // Handle the error appropriately.  You might want to:
+    // 1.  Send an error response to the client (res.status(500).send('Database connection error');)
+    // 2.  Log the error to a logging service.
+    return; // Important: Stop further execution if the connection fails.
+  }
+  console.log('Connected to database!');
+});
 
-// TEMPORARILY COMMENT OUT FILE SYSTEM OPERATIONS
-// const fs = require('fs');
-// const path = require('path');
-// const createFolder = (application_id) => { ... };
+// const db = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'main'
+// });
+
+// Function to create a folder if it doesn't exist
+// const createFolder = (application_id) => {
+//   const folderPath = path.join(__dirname, '../uploads', application_id);
+//   console.log("Folderpath:", folderPath);
+
+//   if (!fs.existsSync(folderPath)) {
+//     fs.mkdirSync(folderPath, { recursive: true });
+//     console.log(`Folder "${application_id}" created inside "uploads/"`);
+//   }
+// };
 
 router.post('/', (req, res) => {
-    console.log('POST /login route hit!'); // This is the crucial one to see
-    console.log('Request body:', req.body);
-    return res.status(200).json({ message: 'Login route working (test mode)!' });
+  const { application_id, password } = req.body;
+
+  db.query(
+    'SELECT * FROM student_info WHERE application_id = ?',
+    [application_id],
+    (err, results) => {
+      if (err) return res.status(500).send(err);
+
+      const user = results[0];
+      if (!user) return res.status(404).send('User not found');
+
+      if (user.password !== password) {
+        return res.status(401).send('Incorrect password');
+      }
+
+      if (user.is_temp) {
+        // createFolder(application_id);
+        return res.status(200).json({ changePassword: true, application_id: user.application_id });
+      }
+
+      // createFolder(application_id);
+      // res.status(200).json({ dashboard: true, application_id: user.application_id });
+
+      // ✅ Insert application_id into doc_uploaded if it doesn’t exist
+      db.query(
+        `INSERT INTO doc_uploaded (application_id) 
+         SELECT ? FROM DUAL 
+         WHERE NOT EXISTS (SELECT application_id FROM doc_uploaded WHERE application_id = ?)`,
+        [application_id, application_id],
+        (err) => {
+          if (err) {
+            console.error("Database Insert Error:", err);
+            return res.status(500).json({ error: 'Failed to insert application_id' });
+          }
+          console.log(`Application ID ${application_id} inserted into doc_uploaded if missing.`);
+        }
+      );
+    }
+  );
 });
 
 router.post('/change-password', (req, res) => {
-    console.log('POST /change-password route hit!');
-    console.log('Request body:', req.body);
-    return res.status(200).json({ message: 'Change password route working (test mode)!' });
+  const { application_id, newPassword } = req.body;
+
+  const query = 'UPDATE student_info SET password = ?, is_temp = 0 WHERE application_id = ?';
+
+  db.query(query, [newPassword, application_id], (err, result) => {
+    if (err) return res.status(500).send('Database error');
+    if (result.affectedRows === 0) return res.status(404).send('User not found');
+
+    createFolder(application_id);
+    res.status(200).send('Password updated successfully');
+  });
 });
 
 module.exports = router;
