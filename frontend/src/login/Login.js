@@ -17,7 +17,7 @@ function Login() {
     setLoading(true);
     setError('');
 
-    axios.post('${API_BASE_URL}/login', {
+    axios.post(`${API_BASE_URL}/login`, {
       application_id: applicationId,
       password: password
     })
